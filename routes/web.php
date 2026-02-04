@@ -62,3 +62,29 @@ Route::middleware(['auth', 'admin'])->prefix('admin')->name('admin.')->group(fun
     Route::get('/orders/{order}', [AdminOrderController::class, 'show'])->name('orders.show');
     Route::patch('/orders/{order}/status', [AdminOrderController::class, 'updateStatus'])->name('orders.updateStatus');
 });
+
+// Cache clearing route for deployment (remove after use)
+Route::get('/clear-all-cache', function () {
+    try {
+        Artisan::call('config:clear');
+        Artisan::call('cache:clear');
+        Artisan::call('view:clear');
+        Artisan::call('route:clear');
+        
+        return response()->json([
+            'success' => true,
+            'message' => 'All caches cleared successfully!',
+            'cleared' => [
+                'config' => 'cleared',
+                'cache' => 'cleared',
+                'views' => 'cleared',
+                'routes' => 'cleared'
+            ]
+        ]);
+    } catch (\Exception $e) {
+        return response()->json([
+            'success' => false,
+            'message' => 'Error clearing cache: ' . $e->getMessage()
+        ], 500);
+    }
+});

@@ -238,6 +238,50 @@ All routes are defined in `routes/web.php`:
 - Product images gallery
 - Admin dashboard with analytics
 
+## Deployment
+
+### InfinityFree Hosting
+
+This project is deployed at: **https://shopnow.kesug.com**
+
+#### Quick Deployment Steps
+
+1. **Build assets for production**
+```bash
+npm run build
+```
+
+2. **Upload files to InfinityFree**
+   - Upload all Laravel files to `htdocs/`
+   - **IMPORTANT**: Upload `public/build/` folder with CSS/JS files
+   - Upload `.env.production` as `.env` (update database credentials)
+
+3. **Check deployment status**
+   - Visit: `https://shopnow.kesug.com/check-deployment.php`
+   - This will show you what's missing or misconfigured
+
+4. **Clear cache**
+   - Visit: `https://shopnow.kesug.com/clear-all-cache`
+
+#### Deployment Files
+
+- **QUICK_FIX.md** - Fast solution for CSS/JS not loading
+- **DEPLOYMENT_GUIDE.md** - Complete deployment guide
+- **UPLOAD_CHECKLIST.txt** - Step-by-step checklist
+- **.env.production** - Production environment template
+- **public/check-deployment.php** - Deployment verification tool
+
+#### Common Issues
+
+| Issue | Solution |
+|-------|----------|
+| CSS/JS not loading | Upload `public/build/` folder |
+| 500 Error | Set storage folder permissions to 755 |
+| Database Error | Update .env with InfinityFree credentials |
+| Images not showing | Upload storage files to public/storage/ |
+
+For detailed deployment instructions, see **DEPLOYMENT_GUIDE.md**
+
 ## License
 
 MIT License
