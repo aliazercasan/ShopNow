@@ -92,6 +92,9 @@ Route::get('/clear-all-cache', function () {
 // Seed database route (remove after use)
 Route::get('/seed-database', function () {
     try {
+        // Create storage link first
+        Artisan::call('storage:link');
+        
         // Run migrations first
         Artisan::call('migrate', ['--force' => true]);
         
@@ -102,6 +105,7 @@ Route::get('/seed-database', function () {
             'success' => true,
             'message' => 'Database seeded successfully!',
             'info' => [
+                'storage_link' => 'created',
                 'users' => '6 users created (1 admin, 3 sellers, 3 customers)',
                 'categories' => '5 categories created',
                 'products' => '20 products created',

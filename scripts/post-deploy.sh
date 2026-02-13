@@ -2,6 +2,10 @@
 
 echo "🚀 Running post-deployment tasks..."
 
+# Create storage link
+echo "🔗 Creating storage symlink..."
+php artisan storage:link
+
 # Run migrations
 echo "📦 Running migrations..."
 php artisan migrate --force
