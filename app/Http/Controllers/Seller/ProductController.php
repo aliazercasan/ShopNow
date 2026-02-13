@@ -37,10 +37,7 @@ class ProductController extends Controller
         $validated['seller_id'] = auth()->id();
 
         if ($request->hasFile('image')) {
-            $file = $request->file('image');
-            $filename = time() . '_' . $file->getClientOriginalName();
-            $file->move(public_path('storage/products'), $filename);
-            $validated['image'] = 'products/' . $filename;
+            $validated['image'] = $request->file('image')->store('products', 'public');
         }
 
         Product::create($validated);
@@ -79,15 +76,9 @@ class ProductController extends Controller
         if ($request->hasFile('image')) {
             // Delete old image if exists
             if ($product->image) {
-                $oldImagePath = public_path('storage/' . $product->image);
-                if (file_exists($oldImagePath)) {
-                    unlink($oldImagePath);
-                }
+                \Storage::disk('public')->delete($product->image);
             }
-            $file = $request->file('image');
-            $filename = time() . '_' . $file->getClientOriginalName();
-            $file->move(public_path('storage/products'), $filename);
-            $validated['image'] = 'products/' . $filename;
+            $validated['image'] = $request->file('image')->store('products', 'public');
         }
 
         $product->update($validated);
@@ -105,10 +96,7 @@ class ProductController extends Controller
 
         // Delete image if exists
         if ($product->image) {
-            $imagePath = public_path('storage/' . $product->image);
-            if (file_exists($imagePath)) {
-                unlink($imagePath);
-            }
+            \Storage::disk('public')->delete($product->image);
         }
 
         $product->delete();

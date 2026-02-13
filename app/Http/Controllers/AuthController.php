@@ -46,10 +46,7 @@ class AuthController extends Controller
             $userData['verification_status'] = 'pending';
             
             if ($request->hasFile('business_permit')) {
-                $file = $request->file('business_permit');
-                $filename = time() . '_' . $file->getClientOriginalName();
-                $file->move(public_path('storage/business_permits'), $filename);
-                $userData['business_permit'] = 'business_permits/' . $filename;
+                $userData['business_permit'] = $request->file('business_permit')->store('business_permits', 'public');
             }
         } else {
             $userData['verification_status'] = 'approved'; // Customers are auto-approved
