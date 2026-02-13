@@ -21,9 +21,13 @@
                     <div class="bg-white rounded-lg shadow-md p-6">
                         <div class="flex items-center gap-6">
                             <!-- Product Image -->
-                            <div class="w-24 h-24 bg-gray-200 rounded-lg flex items-center justify-center flex-shrink-0">
+                            <div class="w-24 h-24 bg-gray-200 rounded-lg flex items-center justify-center flex-shrink-0 overflow-hidden">
                                 @if($item->product->image)
-                                    <img src="{{ asset('storage/' . $item->product->image) }}" alt="{{ $item->product->name }}" class="w-full h-full object-cover rounded-lg">
+                                    @if(str_starts_with($item->product->image, 'http'))
+                                        <img src="{{ $item->product->image }}" alt="{{ $item->product->name }}" class="w-full h-full object-cover rounded-lg">
+                                    @else
+                                        <img src="{{ asset('storage/' . $item->product->image) }}" alt="{{ $item->product->name }}" class="w-full h-full object-cover rounded-lg">
+                                    @endif
                                 @else
                                     <span class="text-gray-400 text-2xl">📦</span>
                                 @endif

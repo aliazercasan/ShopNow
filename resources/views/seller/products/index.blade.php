@@ -50,7 +50,11 @@
                             <td class="px-6 py-4">
                                 <div class="flex items-center">
                                     @if($product->image)
-                                        <img src="{{ asset('storage/' . $product->image) }}" alt="{{ $product->name }}" class="w-12 h-12 rounded object-cover">
+                                        @if(str_starts_with($product->image, 'http'))
+                                            <img src="{{ $product->image }}" alt="{{ $product->name }}" class="w-12 h-12 rounded object-cover">
+                                        @else
+                                            <img src="{{ asset('storage/' . $product->image) }}" alt="{{ $product->name }}" class="w-12 h-12 rounded object-cover">
+                                        @endif
                                     @else
                                         <div class="w-12 h-12 bg-gray-200 rounded flex items-center justify-center">
                                             <svg class="w-6 h-6 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
