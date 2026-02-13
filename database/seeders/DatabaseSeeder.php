@@ -38,7 +38,6 @@ class DatabaseSeeder extends Seeder
             'email' => 'seller@shopnow.com',
             'password' => bcrypt('password'),
             'role' => 'seller',
-            'is_seller_verified' => true,
             'shop_name' => 'Tech Paradise',
         ]);
 
@@ -47,7 +46,6 @@ class DatabaseSeeder extends Seeder
             'email' => 'sarah@shopnow.com',
             'password' => bcrypt('password'),
             'role' => 'seller',
-            'is_seller_verified' => true,
             'shop_name' => 'Fashion Hub',
         ]);
 
@@ -56,7 +54,6 @@ class DatabaseSeeder extends Seeder
             'email' => 'mike@shopnow.com',
             'password' => bcrypt('password'),
             'role' => 'seller',
-            'is_seller_verified' => true,
             'shop_name' => 'Book Haven',
         ]);
 
