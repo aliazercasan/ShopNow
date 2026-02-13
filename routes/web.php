@@ -88,3 +88,35 @@ Route::get('/clear-all-cache', function () {
         ], 500);
     }
 });
+
+// Seed database route (remove after use)
+Route::get('/seed-database', function () {
+    try {
+        // Run migrations first
+        Artisan::call('migrate', ['--force' => true]);
+        
+        // Then seed the database
+        Artisan::call('db:seed', ['--force' => true]);
+        
+        return response()->json([
+            'success' => true,
+            'message' => 'Database seeded successfully!',
+            'info' => [
+                'users' => '6 users created (1 admin, 3 sellers, 3 customers)',
+                'categories' => '5 categories created',
+                'products' => '20 products created',
+                'orders' => '3 sample orders created',
+                'credentials' => 'All passwords are: password',
+                'admin' => 'admin@shopnow.com',
+                'sellers' => 'seller@shopnow.com, sarah@shopnow.com, mike@shopnow.com',
+                'customers' => 'customer@shopnow.com, jane@shopnow.com, bob@shopnow.com'
+            ]
+        ]);
+    } catch (\Exception $e) {
+        return response()->json([
+            'success' => false,
+            'message' => 'Error seeding database: ' . $e->getMessage(),
+            'trace' => $e->getTraceAsString()
+        ], 500);
+    }
+});
