@@ -14,6 +14,9 @@
     <!-- Alpine.js CDN -->
     <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
     
+    <!-- CSRF Token -->
+    <meta name="csrf-token" content="{{ csrf_token() }}">
+    
     <!-- Custom Tailwind Config -->
     <script>
         tailwind.config = {
@@ -48,6 +51,27 @@
                 }
             }
         }
+        
+        // Auto-refresh CSRF token every 60 minutes to prevent 419 errors
+        setInterval(function() {
+            fetch('/csrf-token-refresh', {
+                method: 'GET',
+                headers: {
+                    'X-Requested-With': 'XMLHttpRequest'
+                }
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.token) {
+                    document.querySelector('meta[name="csrf-token"]').setAttribute('content', data.token);
+                    // Update all CSRF input fields
+                    document.querySelectorAll('input[name="_token"]').forEach(input => {
+                        input.value = data.token;
+                    });
+                }
+            })
+            .catch(error => console.log('CSRF refresh failed:', error));
+        }, 3600000); // 60 minutes
     </script>
     
     <style>

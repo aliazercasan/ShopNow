@@ -88,3 +88,10 @@ Route::get('/clear-all-cache', function () {
         ], 500);
     }
 });
+
+// CSRF token refresh route
+Route::get('/csrf-token-refresh', function () {
+    return response()->json([
+        'token' => csrf_token()
+    ]);
+});
