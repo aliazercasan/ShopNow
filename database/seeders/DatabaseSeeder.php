@@ -14,6 +14,16 @@ class DatabaseSeeder extends Seeder
 {
     public function run(): void
     {
+        // Clear existing data first (optional - comment out if you want to keep existing data)
+        \DB::statement('SET FOREIGN_KEY_CHECKS=0;');
+        \DB::table('order_items')->truncate();
+        \DB::table('orders')->truncate();
+        \DB::table('cart_items')->truncate();
+        \DB::table('products')->truncate();
+        \DB::table('categories')->truncate();
+        \DB::table('users')->truncate();
+        \DB::statement('SET FOREIGN_KEY_CHECKS=1;');
+
         // Create Admin User
         User::create([
             'name' => 'Admin User',
@@ -75,10 +85,20 @@ class DatabaseSeeder extends Seeder
         // Create Categories
         $categories = [
             ['name' => 'Electronics', 'slug' => 'electronics', 'description' => 'Electronic devices and gadgets'],
-            ['name' => 'Clothing', 'slug' => 'clothing', 'description' => 'Fashion and apparel'],
-            ['name' => 'Books', 'slug' => 'books', 'description' => 'Books and literature'],
+            ['name' => 'Clothing & Fashion', 'slug' => 'clothing-fashion', 'description' => 'Fashion and apparel'],
+            ['name' => 'Books & Media', 'slug' => 'books-media', 'description' => 'Books, magazines, and media'],
             ['name' => 'Home & Garden', 'slug' => 'home-garden', 'description' => 'Home and garden products'],
-            ['name' => 'Sports', 'slug' => 'sports', 'description' => 'Sports equipment and accessories'],
+            ['name' => 'Sports & Outdoors', 'slug' => 'sports-outdoors', 'description' => 'Sports equipment and outdoor gear'],
+            ['name' => 'Beauty & Personal Care', 'slug' => 'beauty-personal-care', 'description' => 'Cosmetics and personal care products'],
+            ['name' => 'Toys & Games', 'slug' => 'toys-games', 'description' => 'Toys, games, and entertainment'],
+            ['name' => 'Automotive', 'slug' => 'automotive', 'description' => 'Car parts and accessories'],
+            ['name' => 'Health & Wellness', 'slug' => 'health-wellness', 'description' => 'Health and wellness products'],
+            ['name' => 'Jewelry & Accessories', 'slug' => 'jewelry-accessories', 'description' => 'Jewelry, watches, and accessories'],
+            ['name' => 'Pet Supplies', 'slug' => 'pet-supplies', 'description' => 'Pet food, toys, and accessories'],
+            ['name' => 'Office Supplies', 'slug' => 'office-supplies', 'description' => 'Office and school supplies'],
+            ['name' => 'Baby & Kids', 'slug' => 'baby-kids', 'description' => 'Baby and children products'],
+            ['name' => 'Food & Beverages', 'slug' => 'food-beverages', 'description' => 'Food, drinks, and groceries'],
+            ['name' => 'Furniture', 'slug' => 'furniture', 'description' => 'Home and office furniture'],
         ];
 
         foreach ($categories as $category) {
